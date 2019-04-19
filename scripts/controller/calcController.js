@@ -5,8 +5,21 @@ class CalcController{
 
         // _ -> Underline, quer dizer que o atributo é privado
         this._displayCalc = "0";
-        this._dataAtual;
+        this._currentDate;
+        this.initialize();
 
+    }
+
+    initialize()
+    {
+        
+        let displayCalcEl = document.querySelector("#display");
+        let dateEl = document.querySelector("#data");
+        let timeEl = document.querySelector("#hora");
+
+        displayCalcEl.innerHTML = "4567";
+        dateEl.innerHTML = "19/04/2019";
+        timeEl.innerHTML = "18:47";
     }
 
     get displayCal()
@@ -21,14 +34,14 @@ class CalcController{
 
     }
 
-    get dataAtual()
+    get currentDate()
     {
-        return this._dataAtual;
+        return this._currentDate;
     }
 
-    set dataAtual(data)
+    set currentDate(data)
     {
-        this._dataAtual = data;
+        this._currentDate = data;
     }
 
 }
