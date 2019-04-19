@@ -1,10 +1,12 @@
 class CalcController{
 
     constructor()
-    {
-
+    {   
         // _ -> Underline, quer dizer que o atributo é privado
-        this._displayCalc = "0";
+        this._locale = "pt-BR";
+        this._displayCalcEl = document.querySelector("#display");
+        this._dateEl = document.querySelector("#data");
+        this._timeEl = document.querySelector("#hora");
         this._currentDate;
         this.initialize();
 
@@ -12,31 +14,64 @@ class CalcController{
 
     initialize()
     {
-        
-        let displayCalcEl = document.querySelector("#display");
-        let dateEl = document.querySelector("#data");
-        let timeEl = document.querySelector("#hora");
 
-        displayCalcEl.innerHTML = "4567";
-        dateEl.innerHTML = "19/04/2019";
-        timeEl.innerHTML = "18:47";
+        this.setDisplayDateTime();
+
+        setInterval(() => {
+
+            this.setDisplayDateTime();
+
+        }, 1000);
+
     }
+
+    setDisplayDateTime()
+    {
+        this.displayDate = this.currentDate.toLocaleDateString(this._locale,{
+            day: '2-digit',
+            month: "long",
+            year: "numeric"
+        });
+        this.displayTime = this.currentDate.toLocaleTimeString(this._locale);
+    }
+
+    get displayTime()
+    {
+        return this._timeEl.innerHTML;
+    }
+
+    set displayTime(value)
+    {
+        return this._timeEl.innerHTML = value;
+    }
+
+
+    get displayDate()
+    { 
+        return this._dateEl.innerHTML;
+    }
+
+    set displayDate(value)
+    { 
+        return this._dateEl.innerHTML = value;
+    }
+
 
     get displayCal()
     {
-        return this._displayCalc;
+        return this._displayCalcEl.innerHTML;
     }
 
-    set displayCal(valor)
+    set displayCal(value)
     {
 
-        this._displayCalc = valor;
+        this._displayCalcEl.innerHTML = value;
 
     }
 
     get currentDate()
     {
-        return this._currentDate;
+        return new Date();
     }
 
     set currentDate(data)
