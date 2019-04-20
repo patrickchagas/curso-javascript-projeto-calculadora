@@ -53,10 +53,57 @@ class CalcController{
 
     }
 
-    addOperation(value)
+    getLastOperation()
     {
 
-        this._operation.push(value);//O push adiciona um elemento a última posição de um array
+        return this._operation[this._operation.length-1];
+
+    }
+
+    setLastOperation(value)
+    {
+       
+        this._operation[this._operation.length - 1] = value;
+        
+    }
+
+    isOperator(value)
+    {
+
+       return( ['+', "-", "*", "%", "/"].indexOf(value) > -1);
+
+
+    }
+
+    addOperation(value)
+    {
+        //Pegar os campos que não são números
+        if(isNaN(this.getLastOperation()))
+        {
+            //String
+            if(this.isOperator(value))
+            {   
+                //Trocar o operador
+                this.setLastOperation(value);
+
+            } else if(isNaN(value)) {
+                
+                // Outra coisa
+                console.log(value);
+
+            } else {    
+                
+                this._operation.push(value);//O push adiciona um elemento a última posição de um array
+
+            }
+            
+        } else {
+            //Number
+            let newValue = this.getLastOperation().toString() + value.toString();
+
+            this.setLastOperation(parseInt(newValue));//O push adiciona um elemento a última posição de um array
+        }
+
 
         console.log(this._operation);
 
@@ -81,27 +128,31 @@ class CalcController{
             break;
 
             case 'soma':
-            this.clearEntry();    
+                this.addOperation("+");
             break;
 
             case 'subtracao':
-            this.clearEntry();    
+                this.addOperation("-");
             break;
 
             case 'divisao':
-            this.clearEntry();    
+                this.addOperation("/");
             break;
 
             case 'multiplicacao':
-            this.clearEntry();    
+                this.addOperation("*");
             break;
 
             case 'porcento':
-            this.clearEntry();    
+                this.addOperation("%");
             break;
 
             case 'igual':
-            this.clearEntry();    
+                
+            break;
+
+            case 'ponto':
+                this.addOperation(".");
             break;
             
             case '0':
