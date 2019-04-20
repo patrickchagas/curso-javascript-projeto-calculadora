@@ -75,6 +75,34 @@ class CalcController{
 
     }
 
+    pushOperation(value)
+    {
+        this._operation.push(value);//O push adiciona um elemento a última posição de um array
+
+        if(this._operation.length > 3)
+        {
+
+            this.calc();
+        }
+    }
+
+    calc()
+    {
+
+        let last = this._operation.pop();
+
+        let result = eval(this._operation.join(""));
+
+        this._operation = [result, last];
+    }
+
+    setLastNumberToDisplay()
+    {
+
+        
+
+    }
+
     addOperation(value)
     {
         //Pegar os campos que não são números
@@ -93,20 +121,25 @@ class CalcController{
 
             } else {    
                 
-                this._operation.push(value);//O push adiciona um elemento a última posição de um array
-
+                this.pushOperation(value);
             }
             
         } else {
-            //Number
-            let newValue = this.getLastOperation().toString() + value.toString();
 
-            this.setLastOperation(parseInt(newValue));//O push adiciona um elemento a última posição de um array
+            if(this.isOperator(value)){
+
+                this.pushOperation(value);
+
+            } else {
+                
+                //Number
+                let newValue = this.getLastOperation().toString() + value.toString();
+                this.setLastOperation(parseInt(newValue));//O push adiciona um elemento a última posição de um array
+
+                //Atualizar Display
+                this.setLastNumberToDisplay();
+            }      
         }
-
-
-        console.log(this._operation);
-
     }
 
     setError()
